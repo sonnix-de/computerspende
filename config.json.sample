@@ -1,0 +1,4 @@
+{
+    "token": "secret mantis api token",
+    "mantisapi": "url to your mantis api with a ending slash"
+}
