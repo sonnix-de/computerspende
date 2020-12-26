@@ -53,22 +53,17 @@ def setIssueInfo():
     )
 
     # CpuInfo
-    cpu = "Physische Cores: " + str(CCI['CPU']['Pysical Cores'])
+    cpu = "Physische Cores " + str(CCI['CPU']['Pysical Cores'])
 
     # und formulierung der Updatestruktur
     # custom_fields funktioniert noch nicht!
-    custom_fields = {"field": {"name": "cpu"}, "value": cpu}
-
+    custom_fields = [{"field": {"name": "cpu"}, "value": cpu}]
     updateInfo = {"description": description, "custom_fields": custom_fields}
     return updateInfo
 
 
-# helper.loadJsonFile("update.json")
-# updateStructure =
 # 25 ist das Beispiels-Issue
 infos = updateIssue(25, setIssueInfo())
-print(infos)
-infos = getIssueInfo(25)
-print(infos)
-
+issues = getIssueInfo(25)
+# print(issues["issues"][0]['custom_fields'])
 # updateInfo = str(updateInfo)
