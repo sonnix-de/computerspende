@@ -32,3 +32,10 @@ Gefüllt ist:
 * Schöne Wrapper Scripte vorbereitet:
   - createAndFinish: Legt den Mantis-Eintrag an und füllt o. g. Felder und setzt den Status dann gleich auf "erledigt"
   - create: Legt nur einen neuen Eintrag an mit allem was ermittelbar ist und setzt ihn auf "zugewiesen"
+
+## Deployment
+
+[nylas.com](https://www.nylas.com/blog/packaging-deploying-python/)
+```
+pip install make-deb
+```
