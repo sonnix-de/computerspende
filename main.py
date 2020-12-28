@@ -4,6 +4,7 @@ from consolemenu import *
 from consolemenu.items import *
 
 import readhw as hw
+import cleanhdd as cleanhdd
 
 
 def showHardware():
@@ -23,14 +24,16 @@ def showHelp():
 
 
 def cleanHdd():
-    print("welche Festplatte soll geputzt werden?")
-    hdd = input('geben Sie den Namen der Festplatte ein')
-    print(hdd)
-    input('Weiter mit enter')
+    cleanhdd.excuteMenueItem()
 
 
 def createAsset():
     print("Der Mantis-Eintrag wird erstellt")
+    input('Weiter mit enter')
+
+
+def updateAsset():
+    print("Der Mantis-Eintrag wird aktualisiert (id muss übergeben werden)")
     input('Weiter mit enter')
 
 
@@ -42,10 +45,12 @@ function_item1 = FunctionItem("Hilfe zum Programm", showHelp)
 function_item2 = FunctionItem("Infos über den Computer", showHardware)
 function_item3 = FunctionItem("Clean Hdd", cleanHdd)
 function_item4 = FunctionItem("Asset (Mantis) erstellen", createAsset)
+function_item5 = FunctionItem("Asset (Mantis) aktualisieren", updateAsset)
 
 menu.append_item(function_item1)
 menu.append_item(function_item2)
 menu.append_item(function_item3)
 menu.append_item(function_item4)
+menu.append_item(function_item5)
 
 menu.show()
