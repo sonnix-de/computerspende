@@ -1,0 +1,4 @@
+console-menu
+requests
+psutil
+opencv-python
