@@ -1,5 +1,6 @@
 import psutil
 import platform
+import subprocess
 from datetime import datetime
 
 
@@ -44,3 +45,10 @@ def getInformationAboutCurrentComputer():
     mainInfo['SystemInfo'] = getSystemInformation()
     mainInfo['CPU'] = getCpu()
     return mainInfo
+
+def cpu():
+    return subprocess.check_output("grep -i 'model name' /proc/cpuinfo | uniq | awk -F': ' '{ print $2 }'", shell=True).decode().strip();
+
+def memory():
+    return subprocess.check_output("grep -i 'MemTotal' /proc/meminfo | awk '{ $2=int($2/1000000)\" GB\"; print$2 }'", shell=True).decode().strip();
+

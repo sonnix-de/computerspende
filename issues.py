@@ -3,11 +3,7 @@
 """
 
 import requests
-import json
 import config as config
-import helper as helper
-import readhw as hw
-
 
 def getIssueInfo(id):
 
@@ -27,43 +23,13 @@ def updateIssue(id, updateInfo):
     print(x)
 
 
-def setIssueInfo():
-    # auslesen der Hardwareinformationen
-    CCI = hw.getInformationAboutCurrentComputer()
+def createIssue(issueJson):
 
-    # Zusemmensetzen der Beschreibung
-    description = """
-    # SystemInformationen
-
-    System: {}
-    Realease: {}
-    Version: {}
-
-    ## CPU
-
-    Physical Cores: {}
-    Total Cores: {}
-    """
-    description = description.format(
-        CCI['SystemInfo']['System'],
-        CCI['SystemInfo']['Release'],
-        CCI['SystemInfo']['Version'],
-        CCI['CPU']['Pysical Cores'],
-        CCI['CPU']['Total cores']
-    )
-
-    # CpuInfo
-    cpu = "Physische Cores " + str(CCI['CPU']['Pysical Cores'])
-
-    # und formulierung der Updatestruktur
-    # custom_fields funktioniert noch nicht!
-    custom_fields = [{"field": {"name": "cpu"}, "value": cpu}]
-    updateInfo = {"description": description, "custom_fields": custom_fields}
-    return updateInfo
+    url = config.MANTIS_API + 'issues/'
+    authHeaders = {"Authorization": config.TOKEN,
+               "Content-Type": "application/json"}
+    print(issueJson)
+    x = requests.post(url, json = issueJson, headers = authHeaders)
+    print(x.text)
 
 
-# 25 ist das Beispiels-Issue
-infos = updateIssue(25, setIssueInfo())
-issues = getIssueInfo(25)
-# print(issues["issues"][0]['custom_fields'])
-# updateInfo = str(updateInfo)

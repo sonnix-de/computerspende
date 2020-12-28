@@ -1,4 +1,5 @@
 {
     "token": "secret mantis api token",
-    "mantisapi": "url to your mantis api with a ending slash"
+    "mantisapi": "url to your mantis api with a ending slash",
+    "standort": "name des standorts"
 }
