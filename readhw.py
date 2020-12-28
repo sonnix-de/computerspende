@@ -23,31 +23,29 @@ def getSystemInformation():
     Nur ein Kommentar
     """
     uname = platform.uname()
-    SystemInfo = {}
-    SystemInfo['System'] = uname.system
-    SystemInfo['Node Name'] = uname.node
-    SystemInfo['Release'] = uname.release
-    SystemInfo['Version'] = uname.version
-    SystemInfo['Machine'] = uname.machine
-    SystemInfo['Prozessor'] = uname.processor
-    return SystemInfo
+    system_info = {}
+    system_info['System'] = uname.system
+    system_info['Node Name'] = uname.node
+    system_info['Release'] = uname.release
+    system_info['Version'] = uname.version
+    system_info['Machine'] = uname.machine
+    system_info['Prozessor'] = uname.processor
+    return system_info
 
 
 def getCpu():
-    SystemInfo = {}
-    SystemInfo['Pysical Cores'] = psutil.cpu_count(logical=False)
-    SystemInfo['Total cores'] = psutil.cpu_count(logical=True)
-    return SystemInfo
+    system_info = {'Pysical Cores': psutil.cpu_count(logical=False), 'Total cores': psutil.cpu_count(logical=True)}
+    return system_info
 
 
 def getInformationAboutCurrentComputer():
-    mainInfo = {}
-    mainInfo['SystemInfo'] = getSystemInformation()
-    mainInfo['CPU'] = getCpu()
-    return mainInfo
+    main_info = {'SystemInfo': getSystemInformation(), 'CPU': getCpu()}
+    return main_info
+
 
 def cpu():
     return subprocess.check_output("grep -i 'model name' /proc/cpuinfo | uniq | awk -F': ' '{ print $2 }'", shell=True).decode().strip();
+
 
 def memory():
     return subprocess.check_output("grep -i 'MemTotal' /proc/meminfo | awk '{ $2=int($2/1000000)\" GB\"; print$2 }'", shell=True).decode().strip();

@@ -8,30 +8,30 @@ import readhw as hw
 
 def showHardware():
     print(hw.getInformationAboutCurrentComputer())
-    weiter = input()
+    input()
 
 
 def showHelp():
-    hilfeText = """
+    help_text = """
     Dieses kleine Tool bietet ein paar Funktionen zum aussetzen der Rechner und 
     zum Einpflegen der Daten in Mantis.
     Außerdem bietet es noch die Möglichkeit ein Dokument für die Übergabe des 
     Computers ausdrucken zu können.
     """
-    print(hilfeText)
-    weiter = input("Weiter mit einer Taste")
+    print(help_text)
+    input("Weiter mit enter")
 
 
 def cleanHdd():
     print("welche Festplatte soll geputzt werden?")
     hdd = input('geben Sie den Namen der Festplatte ein')
     print(hdd)
-    weiter = input('Weiter mit einer Taste')
+    input('Weiter mit enter')
 
 
 def createAsset():
     print("Der Mantis-Eintrag wird erstellt")
-    weiter = input('Weiter mit einer Taste')
+    input('Weiter mit enter')
 
 
 # Create the menu

@@ -5,6 +5,7 @@
 import requests
 import config as config
 
+
 def getIssueInfo(id):
 
     url = config.MANTIS_API + 'issues/' + str(id)

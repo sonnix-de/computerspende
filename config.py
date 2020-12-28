@@ -2,12 +2,12 @@
     Sendet informationen an einem Webservice
 """
 
-import requests
 import json
 
 TOKEN = 'some secret keys'
 MANTIS_API = 'someurlto mantis bugtracker'
 STANDORT = "ein standort"
+
 
 def readConfig():
     global TOKEN, MANTIS_API, STANDORT
@@ -18,5 +18,6 @@ def readConfig():
     TOKEN = config['token']
     MANTIS_API = config['mantisapi']
     STANDORT = config['standort']
+
 
 readConfig()
