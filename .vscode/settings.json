@@ -1,0 +1,5 @@
+{
+    "python.venvPath": "/home/daniel/Documents/computerspende/venv",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
+}

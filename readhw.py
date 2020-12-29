@@ -3,20 +3,23 @@ import platform
 import subprocess
 from datetime import datetime
 
-
-def get_size(bytes, suffix="B"):
+def get_size(bytes, suffix="B", separator=","):
     """
     Scale bytes to its proper format
     e.g:
         1253656 => '1.20MB'
-        1253656678 => '1.17GB'
+        1253656678 => '1.17GB' or '1,17 GB depending on the separator default is ,
     """
     factor = 1024
+    bytes = int(bytes)
+    suffix = "B"
     for unit in ["", "K", "M", "G", "T", "P"]:
         if bytes < factor:
-            return f"{bytes:.2f}{unit}{suffix}"
+            if separator == ",":
+                return f"{bytes:.2f} {unit}{suffix}".replace('.',',')
+            elif separator == ".":
+                return f"{bytes:.2f} {unit}{suffix}"
         bytes /= factor
-
 
 def getSystemInformation():
     """
@@ -50,3 +53,10 @@ def cpu():
 def memory():
     return subprocess.check_output("grep -i 'MemTotal' /proc/meminfo | awk '{ $2=int($2/1000000)\" GB\"; print$2 }'", shell=True).decode().strip();
 
+def storage():
+    devices=subprocess.check_output("lsblk -o Name -p -l -n", shell=True).decode().splitlines()
+    for device in devices:
+        if "nvme" in device:
+            return get_size(subprocess.check_output("lsblk -b /dev/nvme0n1 -o SIZE -n -d", shell=True), "G")
+        elif "sda" in device:
+            return get_size(subprocess.check_output("lsblk -b /dev/sda -o SIZE -n -d", shell=True), "G")
