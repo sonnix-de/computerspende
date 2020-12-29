@@ -10,10 +10,10 @@ import os
 
 def excuteMenueItem():
     info = """
-        Dieser Befehl liest die angeschlossenen Laufwerke aus und frägt nach dem zu löschenden Laufwerk.
-        Nach der Eingabe dieses Laufwerk, wird der zugehörige shred Befehl vorgeschlagen, um die Festplatte zu "putzen"
-        ---
-        Dieser Befehl kann dann entsprechend kopiert und ausgeführt werden (auf eigene Verantwortung)
+    Dieser Befehl liest die angeschlossenen Laufwerke aus und frägt nach dem zu löschenden Laufwerk.
+    Nach der Eingabe dieses Laufwerk, wird der zugehörige shred Befehl vorgeschlagen, um die Festplatte zu "putzen"
+    ---
+    Dieser Befehl kann dann entsprechend kopiert und ausgeführt werden (auf eigene Verantwortung)
     """
     print(info)
     command = os.popen('sudo lshw -short -C disk')
