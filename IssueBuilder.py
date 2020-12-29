@@ -7,8 +7,6 @@ import subprocess
 import config
 import readhw
 from datetime import datetime
-import cv2
-
 
 def summary(lshwJson):
     return lshwJson['vendor'] + " " + lshwJson['product']
@@ -20,14 +18,9 @@ def category(lshwJson):
     else:
         return "Desktop"
 
-
-def check_for_cam(cam=0):
-    cap = cv2.VideoCapture(cam)
-    if cap is None or not cap.isOpened():
-        return "Nein"
-    else:
-        return "Ja"
-
+def os():
+    return subprocess.check_output("grep -i PRETTY_NAME -s -d skip /etc/*-release | awk -F'=' '{ print $2 }'", shell=True, universal_newlines=True).strip().replace('\"', '')
+    
 
 def build():
     
@@ -39,7 +32,7 @@ def build():
         {"field": {"name": "Ram"}, "value": readhw.memory()},
         {"field": {"name": "eingang"}, "value": datetime.now().timestamp()},
         {"field": {"name": "Festplatte"}, "value": ""},  # größe und typ
-        {"field": {"name": "webcam"}, "value": check_for_cam()},
+        {"field": {"name": "webcam"}, "value": readhw.check_for_cam()},
         {"field": {"name": "wlan"}, "value": ""},  # irgendwie testen ob erkannt und geht
         {"field": {"name": "Standort"}, "value": config.STANDORT} 
     ]
@@ -50,6 +43,7 @@ def build():
         "summary": summary(lshwJson),
         "description": description, 
         "custom_fields": custom_fields,
+        "os": os(),
         "category": { 
             "name": category(lshwJson) 
         },

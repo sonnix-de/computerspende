@@ -2,7 +2,7 @@ import psutil
 import platform
 import subprocess
 from datetime import datetime
-
+import cv2
 
 def get_size(bytes, suffix="B"):
     """
@@ -44,9 +44,17 @@ def getInformationAboutCurrentComputer():
 
 
 def cpu():
-    return subprocess.check_output("grep -i 'model name' /proc/cpuinfo | uniq | awk -F': ' '{ print $2 }'", shell=True).decode().strip();
-
+    cpu = subprocess.check_output("grep -i 'model name' /proc/cpuinfo | uniq | awk -F': ' '{ print $2 }'", shell=True).decode().strip();
+    # wir können etwas kürzen damit die werte nicht zu lang werden
+    # hier kann man einfach weiter ergänzen für andere CPU Modelle
+    return cpu.replace('Intel(R) Core(TM) ', '')
 
 def memory():
     return subprocess.check_output("grep -i 'MemTotal' /proc/meminfo | awk '{ $2=int($2/1000000)\" GB\"; print$2 }'", shell=True).decode().strip();
 
+def check_for_cam(cam=0):
+    cap = cv2.VideoCapture(cam)
+    if cap is None or not cap.isOpened():
+        return "Nein"
+    else:
+        return "Ja"
