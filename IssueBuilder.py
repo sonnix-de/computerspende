@@ -24,9 +24,9 @@ def category(lshwJson):
 def check_for_cam(cam=0):
     cap = cv2.VideoCapture(cam)
     if cap is None or not cap.isOpened():
-        return False
+        return "Nein"
     else:
-        return True
+        return "Ja"
 
 
 def build():
@@ -37,14 +37,14 @@ def build():
     custom_fields = [
         {"field": {"name": "cpu"}, "value": readhw.cpu()},
         {"field": {"name": "Ram"}, "value": readhw.memory()},
-        {"field": {"name": "eingang"}, "value": datetime.now().strftime("%d.%m.%Y")},  # heute
+        {"field": {"name": "eingang"}, "value": datetime.now().timestamp()},
         {"field": {"name": "Festplatte"}, "value": ""},  # größe und typ
-        {"field": {"name": "webcam"}, "value": check_for_cam()},  # irgendwie testen ob erkannt und geht
+        {"field": {"name": "webcam"}, "value": check_for_cam()},
         {"field": {"name": "wlan"}, "value": ""},  # irgendwie testen ob erkannt und geht
         {"field": {"name": "Standort"}, "value": config.STANDORT} 
     ]
     
-    description = ""
+    description = "Some nice description" # TODO was machen wir in die description rein?
     
     mantisJson = {
         "summary": summary(lshwJson),

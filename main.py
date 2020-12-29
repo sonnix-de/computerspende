@@ -5,7 +5,8 @@ from consolemenu.items import *
 
 import readhw as hw
 import cleanhdd as cleanhdd
-
+import IssueBuilder as IssueBuilder
+import issues as issues
 
 def showHardware():
     print(hw.getInformationAboutCurrentComputer())
@@ -29,6 +30,8 @@ def cleanHdd():
 
 def createAsset():
     print("Der Mantis-Eintrag wird erstellt")
+    issue = IssueBuilder.build()
+    issues.createIssue(issue)
     input('Weiter mit enter')
 
 
