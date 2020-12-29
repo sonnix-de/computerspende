@@ -29,7 +29,6 @@ def cleanHdd():
 
 
 def createAsset():
-    print("Der Mantis-Eintrag wird erstellt")
     issue = IssueBuilder.build()
     issues.createIssue(issue)
     input('Weiter mit enter')
