@@ -33,7 +33,7 @@ def build():
         {"field": {"name": "eingang"}, "value": datetime.now().timestamp()},
         {"field": {"name": "Festplatte"}, "value": readhw.storage()},  # größe und typ
         {"field": {"name": "webcam"}, "value": readhw.check_for_cam()},
-        {"field": {"name": "wlan"}, "value": readhw.wif()},  # irgendwie testen ob erkannt und geht
+        {"field": {"name": "wlan"}, "value": readhw.wifi()},  # irgendwie testen ob erkannt und geht
         {"field": {"name": "Standort"}, "value": config.STANDORT} 
     ]
     
