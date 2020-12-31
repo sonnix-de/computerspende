@@ -23,7 +23,6 @@ def updateIssue(id, updateInfo):
     x = requests.patch(url, json=updateInfo, headers=headers)
     print(x)
 
-
 def createIssue(issueJson):
 
     url = config.MANTIS_API + 'issues/'
