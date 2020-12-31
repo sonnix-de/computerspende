@@ -38,9 +38,9 @@ def build():
         {"field": {"name": "cpu"}, "value": readhw.cpu()},
         {"field": {"name": "Ram"}, "value": readhw.memory()},
         {"field": {"name": "eingang"}, "value": datetime.now().timestamp()},
-        {"field": {"name": "Festplatte"}, "value": ""},  # größe und typ
-        {"field": {"name": "webcam"}, "value": check_for_cam()},
-        {"field": {"name": "wlan"}, "value": ""},  # irgendwie testen ob erkannt und geht
+        {"field": {"name": "Festplatte"}, "value": readhw.storage()},  # größe und typ
+        {"field": {"name": "webcam"}, "value": readhw.check_for_cam()},
+        {"field": {"name": "wlan"}, "value": readhw.wif()},  # irgendwie testen ob erkannt und geht
         {"field": {"name": "Standort"}, "value": config.STANDORT} 
     ]
     
