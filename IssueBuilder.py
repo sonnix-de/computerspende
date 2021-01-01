@@ -8,6 +8,7 @@ import config
 import readhw
 from datetime import datetime
 
+
 def summary(lshwJson):
     return lshwJson['vendor'] + " " + lshwJson['product']
 
@@ -17,6 +18,7 @@ def category(lshwJson):
         return "Notebook"
     else:
         return "Desktop"
+
 
 def os():
     return subprocess.check_output("grep -i PRETTY_NAME -s -d skip /etc/*-release | awk -F'=' '{ print $2 }'", shell=True, universal_newlines=True).strip().replace('\"', '')

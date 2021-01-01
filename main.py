@@ -8,6 +8,7 @@ import cleanhdd as cleanhdd
 import IssueBuilder as IssueBuilder
 import issues as issues
 
+
 def showHardware():
     print(hw.getInformationAboutCurrentComputer())
     input()

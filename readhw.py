@@ -23,31 +23,6 @@ def get_size(bytes, suffix="B", separator=","):
         bytes /= factor
 
 
-def getSystemInformation():
-    """
-    Nur ein Kommentar
-    """
-    uname = platform.uname()
-    system_info = {}
-    system_info['System'] = uname.system
-    system_info['Node Name'] = uname.node
-    system_info['Release'] = uname.release
-    system_info['Version'] = uname.version
-    system_info['Machine'] = uname.machine
-    system_info['Prozessor'] = uname.processor
-    return system_info
-
-
-def getCpu():
-    system_info = {'Pysical Cores': psutil.cpu_count(logical=False), 'Total cores': psutil.cpu_count(logical=True)}
-    return system_info
-
-
-def getInformationAboutCurrentComputer():
-    main_info = {'SystemInfo': getSystemInformation(), 'CPU': getCpu()}
-    return main_info
-
-
 def cpu():
     cpu = subprocess.check_output("grep -i 'model name' /proc/cpuinfo | uniq | awk -F': ' '{ print $2 }'", shell=True).decode().strip();
     # wir können etwas kürzen damit die werte nicht zu lang werden
