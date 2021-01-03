@@ -3,7 +3,6 @@ import platform
 import subprocess
 from datetime import datetime
 import cv2
-from samba.compat import get_bytes
 
 def get_size(bytes, suffix="B", separator=","):
     """
@@ -45,25 +44,18 @@ def check_for_cam(cam=0):
 def storage():
     devices=subprocess.check_output("lsblk -o Name -p -l -n", shell=True).decode().splitlines()
     for device in devices:
-        if "nvme" in device:
-            if subprocess.check_output("cat /sys/block/nvme/queue/rotational", shell=True).decode().strip() == 1:
-                type = "HDD"
-            else:
+        # wir brauchen nur nach SD (Sata Device) und NVME suchen, devices wie loop etc interessieren nicht
+        if ("/dev/sd" in device) or ("/dev/nvme" in device):
                 type = "SSD"
-            return get_size(subprocess.check_output("lsblk -b /dev/nvme0n1 -o SIZE -n -d", shell=True), "G") + " (" + type + ")"
-        elif "sda" in device:
-            if subprocess.check_output("cat /sys/block/sda/queue/rotational", shell=True).decode().strip() == 1:
-                type = "HDD"
-            else:
-                type = "SSD"
-            return get_size(subprocess.check_output("lsblk -b /dev/sda -o SIZE -n -d", shell=True), "G") + " (" + type + ")"
-        elif "vda" in device:
-            if subprocess.check_output("cat /sys/block/vda/queue/rotational", shell=True).decode().strip() == 1:
-                type = "HDD"
-            else:
-                type = "SSD"
-            return get_size(subprocess.check_output("lsblk -b /dev/vda -o SIZE -n -d", shell=True), "G") + " (" + type + ")"
-
+                # nvme wird sich nicht merh drehen denke ich
+                if "/dev/sd" in device:
+                    if subprocess.check_output("cat /sys/block/" + device.split("/")[2] + "/queue/rotational", shell=True).decode().strip() == "1":
+                        type = "HDD"
+                    
+                return get_size(subprocess.check_output("lsblk -b " + device + " -o SIZE -n -d", shell=True), "G") + " (" + type + ")"
+    
+    # keine der platten ist eine SD oder NVME
+    return "Keine Ahnung"
 
 def wifi():
     lspci = subprocess.check_output("lspci").decode()
@@ -72,4 +64,3 @@ def wifi():
     else:
         return "Nein"
     
-print(memory())
