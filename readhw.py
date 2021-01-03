@@ -3,6 +3,7 @@ import platform
 import subprocess
 from datetime import datetime
 import cv2
+from samba.compat import get_bytes
 
 def get_size(bytes, suffix="B", separator=","):
     """
@@ -30,8 +31,9 @@ def cpu():
     return cpu.replace('Intel(R) Core(TM) ', '')
 
 def memory():
-    return subprocess.check_output("grep -i 'MemTotal' /proc/meminfo | awk '{ $2=int($2/1000000)\" GB\"; print$2 }'", shell=True).decode().strip();
-
+    bytes = subprocess.check_output("grep -i 'MemTotal' /proc/meminfo | awk '{ print$2; }'", shell=True).decode().strip();
+    return f"{(float(bytes) / 1024 / 1024):.2f}" + " GB"
+    
 def check_for_cam(cam=0):
     cap = cv2.VideoCapture(cam)
     if cap is None or not cap.isOpened():
@@ -69,3 +71,5 @@ def wifi():
         return "Ja"
     else:
         return "Nein"
+    
+print(memory())
