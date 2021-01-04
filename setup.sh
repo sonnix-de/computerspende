@@ -1,5 +1,15 @@
 # python3 sollte schon installiert sein.
 # pip3 muss noch installiert werden
-sudo apt install -y python3-pip
-# das Menü benötigt noch eine Installation
+sudo apt install -y python3-pip git
+# Klonen des git repo des scriptes
+git clone https://github.com/sonnix-de/computerspende.git
+# das Script benötigt einige requirements
 pip3 install -U -r requirements.txt
+
+cd computerspende 
+
+python3 main.py
+
+cd ..
+
+rm -rf computerspende
