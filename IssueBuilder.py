@@ -14,7 +14,7 @@ def summary(lshwJson):
 
 
 def category(lshwJson):
-    if lshwJson["configuration"]["chassis"] == 'notebook' or lshwJson["configuration"]["chassis"] == 'laptop':
+    if lshwJson.get("configuration").get("chassis") == 'notebook' or lshwJson.get("configuration").get("chassis") == 'laptop':
         return "Notebook"
     else:
         return "Desktop"
