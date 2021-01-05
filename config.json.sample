@@ -1,5 +1,5 @@
 {
     "token": "secret mantis api token",
-    "mantisapi": "url to your mantis api with a ending slash",
-    "standort": "name des standorts"
+    "mantisapi": "https://assets.computerspende-regensburg.de/api/rest/"
+    "standort": "Ribisl"
 }
