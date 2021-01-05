@@ -4,6 +4,7 @@
 
 import json, os
 
+
 def createConfigFile():
     config = {}
     print("Es wird nun eine Konfigurationsdatei config.json erstellt.")
@@ -12,6 +13,7 @@ def createConfigFile():
     config['mantisapi'] = "https://assets.computerspende-regensburg.de/"
     with open ('config.json', 'a+') as file:
         json.dump(config, file)
+
 
 def readConfig():
     global TOKEN, MANTIS_API, STANDORT
@@ -23,5 +25,6 @@ def readConfig():
     TOKEN = config['token']
     MANTIS_API = config['mantisapi']
     STANDORT = config['standort']
+
 
 readConfig()

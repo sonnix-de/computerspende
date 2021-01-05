@@ -4,6 +4,7 @@ import subprocess
 from datetime import datetime
 import cv2
 
+
 def get_size(bytes, suffix="B", separator=","):
     """
     Scale bytes to its proper format
@@ -29,9 +30,11 @@ def cpu():
     # hier kann man einfach weiter ergänzen für andere CPU Modelle
     return cpu.replace('Intel(R) Core(TM) ', '')
 
+
 def memory():
     bytes = subprocess.check_output("grep -i 'MemTotal' /proc/meminfo | awk '{ print$2; }'", shell=True).decode().strip();
     return f"{(float(bytes) / 1024 / 1024):.2f}" + " GB"
+    
     
 def check_for_cam(cam=0):
     cap = cv2.VideoCapture(cam)
@@ -56,6 +59,7 @@ def storage():
     
     # keine der platten ist eine SD oder NVME
     return "Keine Ahnung"
+
 
 def wifi():
     
