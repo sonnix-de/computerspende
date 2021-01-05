@@ -136,3 +136,4 @@ dmypy.json
 cloud-init.yaml
 .vscode
 .DS_Store
+config.json
