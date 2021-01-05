@@ -6,7 +6,7 @@ git clone https://github.com/sonnix-de/computerspende.git
 # das Script benötigt einige requirements
 pip3 install -U -r requirements.txt
 
-cd computerspende 
+cd computerspende
 
 python3 main.py
 

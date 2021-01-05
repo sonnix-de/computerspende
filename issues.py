@@ -3,7 +3,7 @@
 """
 
 import requests
-import config as config
+import config
 import json
 
 
