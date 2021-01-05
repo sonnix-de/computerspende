@@ -58,8 +58,13 @@ def storage():
     return "Keine Ahnung"
 
 def wifi():
+    
     lspci = subprocess.check_output("lspci").decode()
-    if "Wireless" in lspci:
+    lshw = subprocess.check_output("lshw").decode()
+
+    if "Wireless" in lspci or "Kabellos" in lshw:
+        return "Ja"
+    if "Wireless" in lspci and "Kabellos" in lshw:
         return "Ja"
     else:
         return "Nein"
