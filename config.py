@@ -10,7 +10,7 @@ def createConfigFile():
     print("Es wird nun eine Konfigurationsdatei config.json erstellt.")
     config['token'] = input("Gib den Token ein:")
     config['standort'] = input("Gib den Standort ein:")
-    config['mantisapi'] = "https://assets.computerspende-regensburg.de/"
+    config['mantisapi'] = "https://assets.computerspende-regensburg.de/rest/api/"
     with open ('config.json', 'a+') as file:
         json.dump(config, file)
 
