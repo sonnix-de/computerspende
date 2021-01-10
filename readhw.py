@@ -63,13 +63,9 @@ def storage():
 
 def wifi():
     
-    lspci = subprocess.check_output("lspci").decode()
     lshw = subprocess.check_output("lshw").decode()
-
-    if "Wireless" in lspci or "Kabellos" in lshw:
-        return "Ja"
-    if "Wireless" in lspci and "Kabellos" in lshw:
+    
+    if "802.11" in lshw:
         return "Ja"
     else:
         return "Nein"
-    
