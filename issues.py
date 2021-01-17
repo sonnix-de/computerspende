@@ -30,9 +30,9 @@ def createIssue(issueJson):
     url = config.MANTIS_API + 'issues/'
     authHeaders = {"Authorization": config.TOKEN, "Content-Type": "application/json"}
     
-    print('------------------------------------------------------------------')
-    print(json.dumps(issueJson, indent=4))
-    print('------------------------------------------------------------------')
+    #print('------------------------------------------------------------------')
+    #print(json.dumps(issueJson, indent=4))
+    #print('------------------------------------------------------------------')
     
     weiter = input('Soll der Mantis Eintrag erzeugt werden? (y,n)? ')
     

@@ -3,6 +3,7 @@ import platform
 import subprocess
 from datetime import datetime
 import cv2
+import json
 
 
 def get_size(bytes, suffix="B", separator=","):
@@ -60,10 +61,22 @@ def storage():
     # keine der platten ist eine SD oder NVME
     return "Keine Ahnung"
 
+def usb3():
+    lsusb = subprocess.check_output("sudo lsusb", shell=True).decode()
+    if "3.0 root hub" in lsusb:
+        return "Ja"
+    else:
+        return "Nein"
+
+def graphicscard():
+    lshw = subprocess.check_output("sudo -S lshw -json -C display", shell=True).decode()
+    lshwJson = json.loads(str(lshw))[0]
+    
+    return lshwJson.get("product") + " (" + lshwJson.get("vendor") + ")"   
 
 def wifi():
     
-    lshw = subprocess.check_output("lshw").decode()
+    lshw = subprocess.check_output("sudo lshw", shell=True).decode()
     
     if "802.11" in lshw:
         return "Ja"

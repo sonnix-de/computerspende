@@ -7,7 +7,7 @@ import subprocess
 import config
 import readhw
 from datetime import datetime
-
+import base64
 
 def summary(lshwJson):
     return lshwJson['vendor'] + " " + lshwJson['product']
@@ -39,7 +39,10 @@ def build():
         {"field": {"name": "Standort"}, "value": config.STANDORT} 
     ]
     
-    description = "Some nice description" # TODO was machen wir in die description rein?
+    description = "USB 3: " + readhw.usb3() + "\n" \
+                  "Grafikkarte: " + readhw.graphicscard()
+    
+    hardwareAttachment = base64.b64encode(subprocess.check_output("sudo lshw -short", shell=True)).decode()
     
     mantisJson = {
         "summary": summary(lshwJson),
@@ -51,7 +54,13 @@ def build():
         },
         "project": { 
             "name": "Computerliste" 
-        }
+        },
+        "files": [
+            {
+                "name": "lshw_output.txt",
+                "content": hardwareAttachment                
+            }
+        ]
     }
     return mantisJson
 
