@@ -67,7 +67,5 @@ Man wird nun aufgefordert den Mantis Token einzugeben. Wie dieser erstellt wird 
 Hier irgendwas mit S2R... - kopieren und in das Terminal Fenster in dem das python script geöffnet ist einfügen.
 <img width="1680" alt="TokenErstellung4" src="https://user-images.githubusercontent.com/19862760/106341771-b969b700-629e-11eb-933a-8769cb807c6c.png">
 ### Token wieder löschen
-1. Hier sieht man den erstellten Token
+1. Hier sieht man den erstellten Token, man kann ihn mit einem Klick auf Revoke wieder löschen
 <img width="1680" alt="TokenErstellung5" src="https://user-images.githubusercontent.com/19862760/106341772-ba024d80-629e-11eb-819d-adf4a71f71bc.png">
-2. Er lässt sich mit einem Klick auf Revoke wieder löschen
-<img width="1680" alt="TokenLöschen" src="https://user-images.githubusercontent.com/19862760/106341773-ba024d80-629e-11eb-915e-1c12858fd52b.png">
