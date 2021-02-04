@@ -1,5 +1,5 @@
 {
     "token": "secret mantis api token",
     "mantisapi": "https://assets.computerspende-regensburg.de/api/rest/"
-    "standort": "Ribisl"
+    "standort": "?"
 }
