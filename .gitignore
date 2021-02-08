@@ -137,3 +137,6 @@ cloud-init.yaml
 .vscode
 .DS_Store
 config.json
+venv
+venv-mac
+config_dev.json
