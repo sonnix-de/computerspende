@@ -44,4 +44,5 @@ def createIssue(issueJson):
         issueId = str(resultJson['issue']['id'])
         
         print("Eintrag erstellt: " + issueId)
+        return issueId
 

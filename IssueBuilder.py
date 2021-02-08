@@ -39,8 +39,20 @@ def build():
         {"field": {"name": "Standort"}, "value": config.STANDORT} 
     ]
     
+    print("Jetzt darfst du weitere Informationen eingeben die du der Description hinzufügen möchtest. z.B. Besonderheiten des Computers: Farbe, krasses Display, Beschädigungen oder Defekte, etc. Wenn du Fertig bist drücke CTRL+D")
+    more_description_input = []
+    while True:
+        try:
+            line = input()
+            more_description_input.append(line)
+        except EOFError:
+            break
+
     description = "USB 3: " + readhw.usb3() + "\n" \
-                  "Grafikkarte: " + readhw.graphicscard()
+                  "Grafikkarte: " + readhw.graphicscard() + "\n" \
+                  "Sonstiges: " + '\n\t    '.join(map(str, more_description_input))
+
+    print(description)
     
     hardwareAttachment = base64.b64encode(subprocess.check_output("sudo lshw -short", shell=True)).decode()
     
@@ -62,7 +74,8 @@ def build():
             }
         ]
     }
+    print(mantisJson)
     return mantisJson
 
 
-print(build())
+# print(build())

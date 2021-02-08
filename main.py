@@ -7,7 +7,7 @@ import readhw as hw
 import cleanhdd as cleanhdd
 import IssueBuilder as IssueBuilder
 import issues as issues
-
+import subprocess
 
 def showHardware():
     print(hw.getInformationAboutCurrentComputer())
@@ -31,14 +31,18 @@ def cleanHdd():
 
 def createAsset():
     issue = IssueBuilder.build()
-    issues.createIssue(issue)
+    issueId = issues.createIssue(issue)
+    old_hostname = subprocess.check_output("hostname", shell=True).decode().strip()
+    new_hostname = 'CSR' + str(issueId)
+    subprocess.run(['hostnamectl', 'set-hostname', new_hostname])
+    print('Hostname von ' +  old_hostname + ' zu ' + new_hostname + ' geändert.')
     input('Weiter mit enter')
 
 
 def updateAsset():
     print("Der Mantis-Eintrag wird aktualisiert (id muss übergeben werden)")
     input('Weiter mit enter')
-
+    
 
 # Create the menu
 menu = ConsoleMenu("Computerspende Regensburg",
