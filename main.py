@@ -2,16 +2,15 @@
 # https://pypi.org/project/simple-term-menu/
 from consolemenu import *
 from consolemenu.items import *
-
-import readhw as hw
 import cleanhdd as cleanhdd
 import IssueBuilder as IssueBuilder
 import issues as issues
 import subprocess
+import os
 
 def showHardware():
-    print(hw.getInformationAboutCurrentComputer())
-    input()
+    showHardware = os.system("sudo lshw -short")
+    print(showHardware)
 
 
 def showHelp():
