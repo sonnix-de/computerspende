@@ -9,7 +9,7 @@ import subprocess
 import os
 
 def showHardware():
-    showHardware = os.system("sudo lshw -short")
+    showHardware = os.system("sudo lshw -short -quiet")
     print(showHardware)
 
 
