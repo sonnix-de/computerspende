@@ -20,8 +20,8 @@ def readConfig():
     global TOKEN, MANTIS_API, STANDORT
     if os.path.exists('config.json'):
         print("Es ist bereits eine Konfigurationsdatei vorhanden.")
-        istvorhanden = input("Möchtest du eine neue erzeugen? (j/n): ")
-        if istvorhanden == "j":
+        isavailable = input("Möchtest du eine neue erzeugen? (j/n): ")
+        if isavailable == "j":
             createConfigFile()
         else:
             pass
