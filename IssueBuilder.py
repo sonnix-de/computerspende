@@ -25,8 +25,8 @@ def os():
     
 
 def build():
-    
-    lshwRaw = subprocess.check_output("sudo -S lshw -json", shell=True, universal_newlines=True)
+    print("Sammle Informationen über den Computer...")
+    lshwRaw = subprocess.check_output("sudo -S lshw -json -quiet", shell=True, universal_newlines=True)
     lshwJson = json.loads(str(lshwRaw))[0]
     
     custom_fields = [
@@ -39,22 +39,26 @@ def build():
         {"field": {"name": "Standort"}, "value": config.STANDORT} 
     ]
     
-    print("Jetzt darfst du weitere Informationen eingeben die du der Description hinzufügen möchtest. z.B. Besonderheiten des Computers: Farbe, krasses Display, Beschädigungen oder Defekte, etc. Wenn du Fertig bist drücke CTRL+D")
-    more_description_input = []
+    print("Jetzt darfst du weitere Informationen eingeben die du der Description hinzufügen möchtest. z.B. Besonderheiten des Computers: Farbe, krasses Display, Beschädigungen oder Defekte, etc. Um zu beenden gib Fertig ein.")
+    more_description_input = ['\t']
+    
     while True:
-        try:
-            line = input()
+        line = input()
+        if line != "Fertig":
             more_description_input.append(line)
-        except EOFError:
+        else:
             break
 
+    more_description_input = '\n            '.join(more_description_input)
+
+    print("Sammle weitere Informationen...")
     description = "USB 3: " + readhw.usb3() + "\n" \
                   "Grafikkarte: " + readhw.graphicscard() + "\n" \
-                  "Sonstiges: " + '\n\t    '.join(map(str, more_description_input))
+                  "Sonstiges: " + more_description_input
 
     print(description)
-    
-    hardwareAttachment = base64.b64encode(subprocess.check_output("sudo lshw -short", shell=True)).decode()
+
+    hardwareAttachment = base64.b64encode(subprocess.check_output("sudo lshw -short -quiet", shell=True)).decode()
     
     mantisJson = {
         "summary": summary(lshwJson),
@@ -76,6 +80,3 @@ def build():
     }
     print(mantisJson)
     return mantisJson
-
-
-# print(build())

@@ -62,21 +62,27 @@ def storage():
     return "Keine Ahnung"
 
 def usb3():
-    lsusb = subprocess.check_output("sudo lsusb", shell=True).decode()
+    try:
+        lsusb = subprocess.check_output("sudo lsusb", shell=True).decode()
+    except subprocess.CalledProcessError:
+        return "Exitcode 1, läuft grad in ner WSL zum testen?" # Zu debugging Zwecken ist dies hier enthalten
     if "3.0 root hub" in lsusb:
         return "Ja"
     else:
         return "Nein"
 
 def graphicscard():
-    lshw = subprocess.check_output("sudo -S lshw -json -C display", shell=True).decode()
-    lshwJson = json.loads(str(lshw))[0]
+    lshw = subprocess.check_output("sudo -S lshw -json -C display -quiet", shell=True).decode()
+    try:
+        lshwJson = json.loads(str(lshw))[0]
+    except IndexError:
+        return "IndexError, läuft grad in ner WSL zum testen?" # Zu debugging Zwecken ist dies hier enthalten
     
     return lshwJson.get("product") + " (" + lshwJson.get("vendor") + ")"   
 
 def wifi():
     
-    lshw = subprocess.check_output("sudo lshw", shell=True).decode()
+    lshw = subprocess.check_output("sudo lshw -quiet", shell=True).decode()
     
     if "802.11" in lshw:
         return "Ja"
