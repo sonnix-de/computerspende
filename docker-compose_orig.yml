@@ -2,8 +2,21 @@ version: '3'
 
 services:
 
+  mantisbt:
+    image: vimagick/mantisbt:latest
+    container_name: mantisbt
+    ports:
+      - "8989:80"
+    links:
+      - mysql
+    restart: always
+    # networks:
+      # - mantis
+
   mysql:
     image: mysql:5.7
+    volumes:
+      - ./data:/var/lib/mysql
     container_name: mysql
     environment:
       - MYSQL_ROOT_PASSWORD=root
@@ -11,14 +24,15 @@ services:
       - MYSQL_USER=mantisbt
       - MYSQL_PASSWORD=mantisbt
     restart: always
-    volumes: 
-      - ./mysql_dump:/root/mantisbt
-      # - ./mysql_data:/var/lib/mysql
+    # networks:
+      # - mantis
 
   phpmyadmin:
+
     image: phpmyadmin
     container_name: phpmyadmin
     environment:
+      - PMA_ARBITRARY=1
       - PMA_HOST=mysql
       - MYSQL_ROOT_PASSWORD=root
     restart: always
@@ -28,13 +42,8 @@ services:
       - /sessions
     depends_on:
       - mysql
+    # networks:
+      # - mantis
 
-  mantisbt:
-    image: vimagick/mantisbt:latest
-    container_name: mantisbt
-    restart: always
-    ports:
-      - "8989:80"
-    depends_on:
-      - mysql
-  
+# networks:
+  # mantis:

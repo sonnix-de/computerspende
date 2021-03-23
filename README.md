@@ -40,6 +40,132 @@ Gefüllt ist:
 pip install make-deb
 ```
 
+## Einrichtung einer Mantis Docker Umgebung (funktioniert aktuell nicht)
+
+### docker-compose.yml
+``` yaml
+version: '3'
+services:
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=mantis
+      - MYSQL_USER=mantisbt
+      - MYSQL_PASSWORD=mantisbt
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      - PMA_HOST=mysql
+      - MYSQL_ROOT_PASSWORD=root
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - /sessions
+    depends_on:
+      - mysql
+
+  mantisbt:
+    image: vimagick/mantisbt:latest
+    container_name: mantisbt
+    restart: always
+    ports:
+      - "8989:80"
+    depends_on:
+      - mysql
+networks:
+  mantis:
+
+```
+### Diese Vorgehensweise:
+
+1. docker-compose up -d
+2. In phpmyadmin unter zB 192.168.236.2:8080 einloggen mit mantisbt und mantisbt, Datenbank mantis erstellen
+3. Import des sql dump in phpmyadmin in die Datenbank mantis oder über mysql -u root -p mantis < export_mantis_db.sql
+4. docker-compose -f docker-compose.yml exec mysql /bin/bash
+	1. mysql -u root -p mantis (passwort ist root)
+	2. 	;
+5. dann http://192.168.236.2:8989/admin/install.php aufrufen und
+Eintragen:
+- hostname: mysql
+- user: mantisbt
+- passworduser: mantisbt
+- datenbank: mantis
+
+- admin: root
+- password: root
+
+Die restliche Felder entsprechen den Default Werten
+
+### Ergibt folgenden Fehler:
+```
+Fatal error: 401 in /var/www/html/core/classes/DbQuery.class.php on line 293
+```
+=> Funktioniert jetzt, aber es gibt kein Zugriff auf die Datenbank...
+Anscheinend liest er nicht die mantis datenbank aus sondern verwendet irgenwas anderes evtl. eine andere default datenbank. Denn Benutzer administrator und root ist vorhanden...
+
+### Wenn nix geht => Löschen und von neuem Starten
+1. docker-compose down
+2. sudo rm -rf data
+3. armageddon (is bei mir in der bashrc n commando um alles was mit docker zu tun hat zu löschen)
+
+### Einspielen des sql dumps über cli:
+mysql -u root -p bugtracker < export_mantis_db.sql
+
+### Links:
+
+Startpage search:
+Does administrative user have access to the database? ( No such file or directory )
+
+https://github.com/xlrl/docker-mantisbt/issues/4
+
+
+Das ganze Ding funktioniert nicht...komplett nervig und frustrierend.
+Evtl. tue ich das mal irgendwo dokumentieren. 
+### Manueller Vorgang:
+
+
+https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-on-ubuntu-20-04-de
+
+Zusätzlicher Nutzer für phpmyadmin einrichten in mysql.
+
+CREATE USER 'mantisbt'@'localhost' IDENTIFIED BY 'mantisbt';
+
+Rechte vergeben
+GRANT ALL PRIVILEGES ON *.* TO 'mantisbt'@'localhost' WITH GRANT OPTION;
+flush privileges;
+
+Falls notwendig, Rechte auf die Mantis db dem root User geben:
+GRANT ALL PRIVILEGES ON mantis to root@'localhost' IDENTIFIED BY 'root'; flush privileges;
+
+Alternativ kann man auch dem root Nutzer Passwortzugriff geben auf die DB
+
+UPDATE mysql.user SET plugin = 'mysql_native_password' WHERE user = 'root' AND plugin = 'unix_socket';
+
+https://www.bennetrichter.de/anleitungen/apache2-php7-mariadb-phpmyadmin/
+
+So manuell gehts auch nicht.
+Liegt wohl an den Rechten.
+
+https://websolutionstogo.de/blog/mantis-bug-tracker-installation-update/
+
+Import dump
+https://mantisbt.org/forums/viewtopic.php?t=20592
+https://www.mantisbt.org/forums/viewtopic.php?t=26850
+https://www.mantisbt.org/wiki/doku.php/mantisbt:db_dump_restore
+
+https://docs.bitnami.com/installer/apps/mantis/administration/backup-restore-mysql-mariadb/
+https://docs.bitnami.com/installer/apps/mantis/administration/export-database/
+
+Mount a directory to docker compose
+https://stackoverflow.com/questions/40905761/how-do-i-mount-a-host-directory-as-a-volume-in-docker-compose
+
 ## Anleitung zur Benutzung des Scripts
 Als erstes erfolgt ein Klonen des Repository in einen Ordner. Am Sinnvollsten auf einer Partition des USB-Stick den man für das Klonen bzw. der Installation des Images auf den Rechnern verwendet. Per Defautl wird der Ordner computerspende am Ort erstellt wo der git clone Befehl aufgerufen wurde.
 ```
