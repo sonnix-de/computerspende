@@ -4,7 +4,6 @@
 
 import json
 import subprocess
-import config
 import readhw
 from datetime import datetime
 import base64
@@ -28,7 +27,11 @@ def build():
     
     lshwRaw = subprocess.check_output("sudo -S lshw -json", shell=True, universal_newlines=True)
     lshwJson = json.loads(str(lshwRaw))[0]
-    
+
+    content = open("config.json").read()
+    config = json.loads(content)
+    STANDORT = config['standort']
+
     custom_fields = [
         {"field": {"name": "cpu"}, "value": readhw.cpu()},
         {"field": {"name": "Ram"}, "value": readhw.memory()},
@@ -36,7 +39,8 @@ def build():
         {"field": {"name": "Festplatte"}, "value": readhw.storage()},  # größe und typ
         {"field": {"name": "webcam"}, "value": readhw.check_for_cam()},
         {"field": {"name": "wlan"}, "value": readhw.wifi()},  # irgendwie testen ob erkannt und geht
-        {"field": {"name": "Standort"}, "value": config.STANDORT} 
+        {"field": {"name": "Standort"}, "value": STANDORT},
+        {"field": {"name": "Betriebssystem"}, "value": readhw.osversion()}
     ]
     
     print("Jetzt darfst du weitere Informationen eingeben die du der Description hinzufügen möchtest. z.B. Besonderheiten des Computers: Farbe, krasses Display, Beschädigungen oder Defekte, etc. Wenn du Fertig bist drücke CTRL+D")
@@ -50,6 +54,7 @@ def build():
 
     description = "USB 3: " + readhw.usb3() + "\n" \
                   "Grafikkarte: " + readhw.graphicscard() + "\n" \
+                  "Auflösung: " + readhw.resolution() + "\n" \
                   "Sonstiges: " + '\n\t    '.join(map(str, more_description_input))
 
     print(description)

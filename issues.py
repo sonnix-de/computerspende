@@ -3,14 +3,17 @@
 """
 
 import requests
-import config
 import json
+
+content = open("config.json").read()
+config = json.loads(content)
+TOKEN = config['token']
 
 
 def getIssueInfo(id):
 
     url = config.MANTIS_API + 'issues/' + str(id)
-    headers = {"Authorization": config.TOKEN}
+    headers = {"Authorization": TOKEN}
     x = requests.get(url, headers=headers)
     return x.json()
 
@@ -18,7 +21,7 @@ def getIssueInfo(id):
 def updateIssue(id, updateInfo):
 
     url = config.MANTIS_API + 'issues/' + str(id)
-    headers = {"Authorization": config.TOKEN,
+    headers = {"Authorization": TOKEN,
                "Content-Type": "application/json"}
     print(updateInfo)
     x = requests.patch(url, json=updateInfo, headers=headers)
@@ -28,7 +31,7 @@ def updateIssue(id, updateInfo):
 def createIssue(issueJson):
 
     url = config.MANTIS_API + 'issues/'
-    authHeaders = {"Authorization": config.TOKEN, "Content-Type": "application/json"}
+    authHeaders = {"Authorization": TOKEN, "Content-Type": "application/json"}
     
     #print('------------------------------------------------------------------')
     #print(json.dumps(issueJson, indent=4))
