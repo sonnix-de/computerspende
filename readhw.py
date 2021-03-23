@@ -94,7 +94,4 @@ def resolution():
     resolution = subprocess.check_output("xrandr  | grep \* | cut -d' ' -f4", shell=True).decode()
     return resolution
 
-def osversion():
-    system = subprocess.check_output("lsb_release -d", shell=True).decode()
-    return(system[13:])
 

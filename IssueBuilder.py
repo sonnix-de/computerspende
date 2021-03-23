@@ -42,8 +42,7 @@ def build():
         {"field": {"name": "Festplatte"}, "value": readhw.storage()},  # größe und typ
         {"field": {"name": "webcam"}, "value": readhw.check_for_cam()},
         {"field": {"name": "wlan"}, "value": readhw.wifi()},  # irgendwie testen ob erkannt und geht
-        {"field": {"name": "Standort"}, "value": STANDORT},
-        {"field": {"name": "Betriebssystem"}, "value": readhw.osversion()}
+        {"field": {"name": "Standort"}, "value": STANDORT}
     ]
 
     print(
