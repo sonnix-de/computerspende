@@ -4,7 +4,6 @@
 
 import json
 import subprocess
-import config
 import readhw
 from datetime import datetime
 import base64
@@ -32,6 +31,10 @@ def build():
     lshwRaw = subprocess.check_output("sudo -S lshw -json -quiet", shell=True, universal_newlines=True)
     lshwJson = json.loads(str(lshwRaw))[0]
 
+    content = open("config.json").read()
+    config = json.loads(content)
+    STANDORT = config['standort']
+
     custom_fields = [
         {"field": {"name": "cpu"}, "value": readhw.cpu()},
         {"field": {"name": "Ram"}, "value": readhw.memory()},
@@ -39,7 +42,8 @@ def build():
         {"field": {"name": "Festplatte"}, "value": readhw.storage()},  # größe und typ
         {"field": {"name": "webcam"}, "value": readhw.check_for_cam()},
         {"field": {"name": "wlan"}, "value": readhw.wifi()},  # irgendwie testen ob erkannt und geht
-        {"field": {"name": "Standort"}, "value": config.STANDORT}
+        {"field": {"name": "Standort"}, "value": STANDORT},
+        {"field": {"name": "Betriebssystem"}, "value": readhw.osversion()}
     ]
 
     print(
@@ -57,8 +61,8 @@ def build():
 
     print("Sammle weitere Informationen...")
     description = "USB 3: " + readhw.usb3() + "\n" \
-                                              "Grafikkarte: " + readhw.graphicscard() + "\n" \
-                                                                                        "Sonstiges: " + more_description_input
+                  "Grafikkarte: " + readhw.graphicscard() + "\n" \
+                  "Sonstiges: " + more_description_input
 
     print(description)
 
