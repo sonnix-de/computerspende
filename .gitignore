@@ -140,3 +140,6 @@ config.json
 venv
 venv-mac
 config_dev.json
+export_mantis_db.sql
+mysql_data
+mysql_dump

@@ -33,10 +33,12 @@ def cleanHdd():
 def createAsset():
     issue = IssueBuilder.build()
     issueId = issues.createIssue(issue)
+    # issueId = 545 # Debugging
+    # print (issueId) # Debugging
     old_hostname = subprocess.check_output("hostname", shell=True).decode().strip()
     new_hostname = 'CSR' + str(issueId)
-    subprocess.run(['hostnamectl', 'set-hostname', new_hostname])
-    print('Hostname von ' + old_hostname + ' zu ' + new_hostname + ' geändert.')
+    subprocess.call(['sh', 'change_hostname.sh', old_hostname, new_hostname])
+    print('Hostname sowohl in der /etc/hostname als auch in der /etc/hosts Datei von ' +  old_hostname + ' zu ' + new_hostname + ' geändert.')
     input('Weiter mit enter')
 
 
