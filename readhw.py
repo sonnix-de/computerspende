@@ -100,5 +100,3 @@ def cdrom():
         return("Ja")
     else:
         return("Nein")
-
-cdrom()
