@@ -4,6 +4,15 @@ Script zu Erfassung unserer Geräte in Mantis.
 
 Ziel ist es, dass Neueinsteiger oder Leute, die es nicht so oft machen, auch eine Chance haben
 den Ablauf richtig hinzubekommen.
+## Changelog:
+### 23.03.2021:
+- Hostname wird nun auch in der /etc/hosts geändert
+- Abbruch der Eingabe mit ctrl+d wurde durch ein Fertig ersetzt
+- Nicht funkionierendes docker-compose file um eine mantisbt dev umgebung bereitzustellen ist online, falls jemand mag kann er dran rumspielen
+- Ein Servicechecker wurde integriert mit dem überprüft werden kann ob alle Webadresse von computerspende erreichbar sind
+- Kleine kosmetische Änderungen am Quellcode
+- Ein Setup-dev script wurde erstellt
+- Das Setup.sh script wurde durch eine Installation von python3-venv erweitert
 
 ## Anforderungen:
 
