@@ -2,12 +2,8 @@
   Diese Klasse unterstützt beim erzeugen der Daten für Mantis
 '''
 
-import json
-import subprocess
-import readhw
+import json, subprocess, readhw, base64
 from datetime import datetime
-import base64
-
 
 def summary(lshwJson):
     return lshwJson['vendor'] + " " + lshwJson['product']
@@ -62,7 +58,7 @@ def build():
     description = "USB 3: " + readhw.usb3() + "\n" \
                   "Grafikkarte: " + readhw.graphicscard() + "\n" \
                   "Auflösung: " + readhw.resolution() + "\n" \
-                  "DVD Laufwerk: " + readhw.cdrom() + "\n" \
+                  "" + readhw.cdrom() + "\n" \
                   "Sonstiges: " + more_description_input
 
     print(description)
@@ -89,3 +85,6 @@ def build():
     }
     print(mantisJson)
     return mantisJson
+
+
+# build() # Debugging Purpose

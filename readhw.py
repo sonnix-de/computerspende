@@ -1,6 +1,4 @@
-import subprocess
-import cv2
-import json
+import subprocess, cv2, json
 
 
 def get_size(bytes, suffix="B", separator=","):
@@ -91,9 +89,21 @@ def resolution():
     resolution = subprocess.check_output("xrandr | grep \* | cut -d' ' -f4", shell=True).decode()
     return resolution
 
+
 def cdrom():
-    disk = subprocess.check_output("sudo lshw -C disk",shell=True).decode()
-    if "*-cdrom" in disk:
-        return("Ja")
-    else:
-        return("Nein")
+    lshw = json.loads(str(subprocess.check_output("sudo lshw -json -C disk", shell=True).decode()))
+    for disk in lshw:
+        if "cdrom" in disk['id']:
+            capabilities = {disk['capabilities'][k] for k in disk['capabilities'].keys() - {'removable'}} # removes key 'removable' from dictionary
+            capabilities = sorted(capabilities) # sorts capabilities alphabetically
+            capabilities = str(capabilities).replace("[","").replace("]", "").replace("'", "") # creates an output that makes sense without square braclets [] and single quotation mark '
+            if "DVD" in capabilities:
+                return "DVD-Laufwerk: " + capabilities
+            elif "CD" in capabilities:
+                return "CD-Laufwerk: " + capabilities
+        else:
+            continue
+    return "Laufwerk: Kein Laufwerk verbaut"
+
+
+# print(cdrom()) # Debugging purpose
