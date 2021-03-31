@@ -2,8 +2,7 @@
     Sendet informationen an einem Webservice
 """
 
-import requests
-import json
+import requests, json
 
 content = open("config.json").read()
 config = json.loads(content)
@@ -48,4 +47,3 @@ def createIssue(issueJson):
         
         print("Eintrag erstellt: " + issueId)
         return issueId
-
