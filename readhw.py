@@ -91,11 +91,11 @@ def wifi():
 
 
 def resolution():
-    resolution = subprocess.check_output("xrandr  | grep \* | cut -d' ' -f4", shell=True).decode()
+    resolution = subprocess.check_output("xrandr | grep \* | cut -d' ' -f4", shell=True).decode()
     return resolution
 
 def cdrom():
-    checkforcd = subprocess.check_output("sudo --.-.lshw -C disk",shell=True).decode()
+    checkforcd = subprocess.check_output("sudo lshw -C disk",shell=True).decode()
     if "*-cdrom" in checkforcd:
         return("Ja")
     else:
