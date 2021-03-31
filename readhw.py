@@ -1,7 +1,4 @@
-import psutil
-import platform
 import subprocess
-from datetime import datetime
 import cv2
 import json
 
@@ -53,7 +50,7 @@ def storage():
         # wir brauchen nur nach SD (Sata Device) und NVME suchen, devices wie loop etc interessieren nicht
         if ("/dev/sd" in device) or ("/dev/nvme" in device):
             type = "SSD"
-            # nvme wird sich nicht merh drehen denke ich
+            # nvme wird sich nicht mehr drehen denke ich
             if "/dev/sd" in device:
                 if subprocess.check_output("cat /sys/block/" + device.split("/")[2] + "/queue/rotational",
                                            shell=True).decode().strip() == "1":
@@ -95,8 +92,8 @@ def resolution():
     return resolution
 
 def cdrom():
-    checkforcd = subprocess.check_output("sudo lshw -C disk",shell=True).decode()
-    if "*-cdrom" in checkforcd:
+    disk = subprocess.check_output("sudo lshw -C disk",shell=True).decode()
+    if "*-cdrom" in disk:
         return("Ja")
     else:
         return("Nein")
