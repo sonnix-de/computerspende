@@ -5,6 +5,15 @@ Script zu Erfassung unserer Geräte in Mantis.
 Ziel ist es, dass Neueinsteiger oder Leute, die es nicht so oft machen, auch eine Chance haben
 den Ablauf richtig hinzubekommen.
 ## Changelog:
+### 01.04.2021:
+- Schönerer Output mit allen gesammelten Informationen kurz vorm erstellen des issues in mantis, damit man einsehen kann welche Informationen in mantis übertragen werden
+- Fix eines Fehler mit der Mantis_API variable in issues.py, seitdem geändert wurde, wie die config in die Klassen reingeladen wird.
+- Deaktivierung der Frage, ob die config.json geändert werden soll bei jedem Start stattdessen wird nun nur dann gefragt, wenn keine config.json existiert
+- Der Sonstige Teil in der description hat einen schöneren Output bekommen, der jetzt auch zu der Ausgabe in der Mantis Weboberfläche passt
+- Der Laufwerksbug wurde behoben
+- Zudem wird nun ausgelesen welche Möglichkeiten das Laufwerk bietet
+- Kleinere refactorings: imports sind nun alle in einer Zeile
+- Überall da wo es notwendig ist wird nun die config.json geladen und zudem die notwendigen Umgebungsvariablen MANTIS_API, STANDORT oder TOKEN aufgerufen
 ### 23.03.2021:
 - Hostname wird nun auch in der /etc/hosts geändert
 - Abbruch der Eingabe mit ctrl+d wurde durch ein Fertig ersetzt
