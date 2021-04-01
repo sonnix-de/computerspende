@@ -53,7 +53,7 @@ def build():
         else:
             break
 
-    more_description_input = '\n           '.join(more_description_input)
+    more_description_input = '\n                   '.join(more_description_input)
 
     print("Sammle weitere Informationen...")
     description = "USB 3: " + readhw.usb3() + "\n" \

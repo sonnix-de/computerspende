@@ -4,7 +4,6 @@
 from config import readConfig # checks if a config.json file is available, if not creates one
 readConfig()
 
-
 from consolemenu import *
 from consolemenu.items import *
 import cleanhdd as cleanhdd
