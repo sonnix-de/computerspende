@@ -5,6 +5,7 @@
 import json, subprocess, readhw, base64
 from datetime import datetime
 
+
 def summary(lshwJson):
     return lshwJson['vendor'] + " " + lshwJson['product']
 
@@ -37,13 +38,13 @@ def build():
         {"field": {"name": "eingang"}, "value": datetime.now().timestamp()},
         {"field": {"name": "Festplatte"}, "value": readhw.storage()},  # größe und typ
         {"field": {"name": "webcam"}, "value": readhw.check_for_cam()},
-        {"field": {"name": "wlan"}, "value": readhw.wifi()},  # irgendwie testen ob erkannt und geht
+        {"field": {"name": "wlan"}, "value": readhw.wifi()},
         {"field": {"name": "Standort"}, "value": STANDORT}
     ]
 
     print(
         "Jetzt darfst du weitere Informationen eingeben die du der Description hinzufügen möchtest. z.B. Besonderheiten des Computers: Farbe, krasses Display, Beschädigungen oder Defekte, etc. Um zu beenden gib Fertig ein.")
-    more_description_input = ['\t']
+    more_description_input = []
 
     while True:
         line = input()
@@ -52,7 +53,7 @@ def build():
         else:
             break
 
-    more_description_input = '\n            '.join(more_description_input)
+    more_description_input = '\n           '.join(more_description_input)
 
     print("Sammle weitere Informationen...")
     description = "USB 3: " + readhw.usb3() + "\n" \
@@ -60,8 +61,6 @@ def build():
                   "Auflösung: " + readhw.resolution() + "\n" \
                   "" + readhw.cdrom() + "\n" \
                   "Sonstiges: " + more_description_input
-
-    print(description)
 
     hardwareAttachment = base64.b64encode(subprocess.check_output("sudo lshw -short -quiet", shell=True)).decode()
 
@@ -83,7 +82,8 @@ def build():
             }
         ]
     }
-    print(mantisJson)
+
+ 
     return mantisJson
 
 

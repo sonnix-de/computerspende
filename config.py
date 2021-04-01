@@ -17,22 +17,13 @@ def createConfigFile():
 
 
 def readConfig():
-    global TOKEN, MANTIS_API, STANDORT
     if os.path.exists('config.json'):
-        print("Es ist bereits eine Konfigurationsdatei vorhanden.")
-        isavailable = input("Möchtest du eine neue erzeugen? (j/n): ")
-        if isavailable == "j":
-            createConfigFile()
-        else:
-            pass
+        pass
+        # print("Es ist bereits eine Konfigurationsdatei vorhanden.")
+        # isavailable = input("Möchtest du eine neue erzeugen? (j/n): ")
+        # if isavailable == "j":
+        #     createConfigFile()
+        # else:
+        #     pass
     else:
         createConfigFile()
-    content = open("config.json").read()
-    config = json.loads(content)
-
-    TOKEN = config['token']
-    MANTIS_API = config['mantisapi']
-    STANDORT = config['standort']
-
-
-readConfig()

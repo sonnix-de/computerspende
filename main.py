@@ -1,5 +1,10 @@
 # Import the necessary packages
 # https://pypi.org/project/simple-term-menu/
+
+from config import readConfig # checks if a config.json file is available, if not creates one
+readConfig()
+
+
 from consolemenu import *
 from consolemenu.items import *
 import cleanhdd as cleanhdd
@@ -32,9 +37,9 @@ def cleanHdd():
 
 def createAsset():
     issue = IssueBuilder.build()
-    issueId = issues.createIssue(issue)
     # issueId = 545 # Debugging
     # print (issueId) # Debugging
+    issueId = issues.createIssue(issue)
     old_hostname = subprocess.check_output("hostname", shell=True).decode().strip()
     new_hostname = 'CSR' + str(issueId)
     subprocess.call(['sh', 'change_hostname.sh', old_hostname, new_hostname])
