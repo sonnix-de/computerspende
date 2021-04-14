@@ -58,7 +58,7 @@ def build():
     print("Sammle weitere Informationen...")
     description = "USB 3: " + readhw.usb3() + "\n" \
                   "Grafikkarte: " + readhw.graphicscard() + "\n" \
-                  "Auflösung: " + readhw.resolution() + "\n" \
+                  "" + readhw.resolution(category(lshwJson)) + "\n" \
                   "" + readhw.cdrom() + "\n" \
                   "Sonstiges: " + more_description_input
 

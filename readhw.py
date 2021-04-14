@@ -85,9 +85,12 @@ def wifi():
         return "Nein"
 
 
-def resolution():
-    resolution = subprocess.check_output("xrandr | grep \* | cut -d' ' -f4", shell=True).decode()
-    return resolution
+def resolution(category):
+    if category == "Desktop":
+        return "Auflösung: Desktop Rechner, daher keine Angabe der Auflösung."
+    elif category == "Notebook":
+        resolution = subprocess.check_output("xrandr | grep \* | cut -d' ' -f4", shell=True).decode()
+        return "Auflösung: " + resolution
 
 
 def cdrom():
