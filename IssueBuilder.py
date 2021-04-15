@@ -12,7 +12,7 @@ def summary(lshwJson):
 
 def category(lshwJson):
     if lshwJson.get("configuration").get("chassis") == 'notebook' or lshwJson.get("configuration").get(
-            "chassis") == 'laptop':
+            "chassis") == 'laptop' or lshwJson.get("configuration").get("chassis") == 'portable':
         return "Notebook"
     else:
         return "Desktop"
