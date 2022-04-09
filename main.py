@@ -42,7 +42,7 @@ def createAsset():
     old_hostname = subprocess.check_output("hostname", shell=True).decode().strip()
     new_hostname = 'CSR' + str(issueId)
     subprocess.call(['sh', 'change_hostname.sh', old_hostname, new_hostname])
-    print('Hostname sowohl in der /etc/hostname als auch in der /etc/hosts Datei von ' +  old_hostname + ' zu ' + new_hostname + ' geändert.')
+    print('Hostname sowohl in der /etc/hostname als auch in der /etc/hosts Datei von ' + old_hostname + ' zu ' + new_hostname + ' geändert.')
     input('Weiter mit enter')
 
 

@@ -56,11 +56,17 @@ def build():
     more_description_input = '\n                   '.join(more_description_input)
 
     print("Sammle weitere Informationen...")
-    description = "USB 3: " + readhw.usb3() + "\n" \
-                  "Grafikkarte: " + readhw.graphicscard() + "\n" \
-                  "" + readhw.resolution(category(lshwJson)) + "\n" \
-                  "" + readhw.cdrom() + "\n" \
-                  "Sonstiges: " + more_description_input
+    if more_description_input == "":
+        description = "USB 3: " + readhw.usb3() + "\n" \
+                      "Grafikkarte: " + readhw.graphicscard() + "\n" \
+                      "" + readhw.resolution(category(lshwJson)) + "\n" \
+                      "" + readhw.cdrom()
+    else:
+        description = "USB 3: " + readhw.usb3() + "\n" \
+                      "Grafikkarte: " + readhw.graphicscard() + "\n" \
+                      "" + readhw.resolution(category(lshwJson)) + "\n" \
+                      "" + readhw.cdrom() + "\n" \
+                      "Sonstiges: " + more_description_input
 
     hardwareAttachment = base64.b64encode(subprocess.check_output("sudo lshw -short -quiet", shell=True)).decode()
 
